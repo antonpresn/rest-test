@@ -9,83 +9,93 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 class BooksTest extends TestCase
 {
     /**
-     * A basic test example.
+     * тест коллекции 
      *
      * @return void
      */
     public function testGetBooks()
     {
         $response = $this->get('/books');
+        $books = App\Book::select(['id', 'name'])
+               ->orderBy('name', 'desc')
+               ->take(10)
+               ->get(); 
 
-        $response
-	        ->assertStatus(200)
-	        ->assertJson([
 
-	        ]);
+       	$response
+       	->assertStatus(200)
+       	->assertJson($books->toArray());
     }
 
     /**
-     * A basic test example.
+     * тест 1 книги 
      *
      * @return void
      */
     public function testGetBook()
     {
         $response = $this->get('/book/1');
+        $book = App\Book::where('id', 1)
+        		->first()
+                ->get(); 
 
         $response
 	        ->assertStatus(200)
-	        ->assertJson([
-
-	        ]);
+	        ->assertJson($book->toArray());
     }
 
-     /**
-     * A basic test example.
+    /**
+     * тест создания 
      *
      * @return void
      */
     public function testCreateBook()
     {
-        $response = $this->post('/book');
+    	$bookData = [
+    		'name' => 'Волшебник ' . \time();
+    	];
+        $response = $this->post('/book', $bookData);
 
-        $response
-	        ->assertStatus(200)
-	        ->assertJson([
+		$this->assertDatabaseHas('books', $bookData);
 
-	        ]);
+        // $response
+	        // ->assertStatus(200);
     }
 
-     /**
-     * A basic test example.
+    /**
+     * тест обновления
      *
      * @return void
      */
     public function testUpdateBook()
     {
-        $response = $this->post('/book');
+    	$bookData = [
+    		'name' => 'Волшебник ' . \time();
+    	];
+    	$bookBefore = App\Book::where('id', 1)
+    					->first()
+    					->get();
+        $response = $this->put('/book/1', $bookData);
+		$this->assertDatabaseHas('books', $bookData);
+		$this->assertNotEquals($bookBefore->name, $bookData['name'])
 
-        $response
-	        ->assertStatus(200)
-	        ->assertJson([
-
-	        ]);
     }
 
      /**
-     * A basic test example.
+     * тест удаления 
      *
      * @return void
      */
     public function testDeleteBook()
     {
-        $response = $this->post('/book');
+    	$bookBefore = App\Book::where('id', 1)
+    					->first()
+    					->get();
 
-        $response
-	        ->assertStatus(200)
-	        ->assertJson([
+    	$this->assertNotEmpty($bookBefore);
+        $response = $this->delete('/book/1');
+		$this->assertDatabaseMissing('books', $bookBefore->toArray());
 
-	        ]);
     }
 
     
