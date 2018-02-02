@@ -7,6 +7,8 @@ namespace Tests\Traits;
  */
 trait ApiTest
 {
+	private $apiPrefix = '/api';
+
 	/** 
 	 * класс включающий должен иметь следующие свойства
 	 * private $entityClass
@@ -16,22 +18,26 @@ trait ApiTest
 
     /**
      * тест коллекции 
-     *
+     * 
+     * @dataProvider providerTestGetAll
      * @return void
      */
     public function testGetAll($hdrs = [], $count = 20)
     {
     	$all = factory($this->entityClass, $count)->create();
-        $response = $this->getJson($this->routes['all'], $hdrs);
+
+        $response = $this->get($this->r(), $hdrs);
+        // fwrite(STDERR, $all);
 
        	$response
        	->assertStatus(200)
-       	->assertJson($all->toArray());
+       	->assertJson(['data' => $all->toArray()]);
     }
 
     /**
      * тест 1 
      *
+     * @dataProvider providerTestGetOne
      * @return void
      */
     public function testGetOne($count = 5)
@@ -39,10 +45,10 @@ trait ApiTest
     	$all = factory($this->entityClass, $count)->create();
     	$one = $all->all()[$count - 1];
 
-        $response = $this->getJson($this->routes['one']."/".$one->id);
+        $response = $this->get($this->r("/".$one->toArray()['id']));
         $response
 	        ->assertStatus(200)
-	        ->assertJson($one->toArray());
+	        ->assertJson(['data' => $one->toArray()]);
     }
 
     /**
@@ -53,7 +59,7 @@ trait ApiTest
     public function testCreateOne()
     {
     	$one = factory($this->entityClass)->make();
-        $response = $this->post($this->routes['one'], $one->toArray());
+        $response = $this->postJson($this->r(), $one->toArray());
 
 		$this->assertDatabaseHas($one->getTable(), $one->toArray());
 
@@ -72,7 +78,7 @@ trait ApiTest
     	// fwrite(STDERR, print_r($one, 1));
     	$before = factory($this->entityClass)->create();
 		$this->assertDatabaseMissing($one->getTable(), $one->toArray());
-        $response = $this->put($this->routes['one'].'/'.$before->id, $one->toArray());
+        $response = $this->patchJson($this->r('/'.$before->toArray()['id']), $one->toArray());
 
 		$this->assertDatabaseHas($one->getTable(), $one->toArray());
 
@@ -86,9 +92,48 @@ trait ApiTest
     public function testDeleteOne()
     {
     	$before = factory($this->entityClass)->create();
-        $response = $this->delete($this->routes['one'].'/'.$before->id);
+    	// fwrite(STDERR, \get_class($before));
+    	// fwrite(STDERR, ($before->id));
+    	// fwrite(STDERR, $before);
+        $response = $this->delete($this->r('/'.$before->toArray()['id']));
 		$this->assertDatabaseMissing($before->getTable(), $before->toArray());
 
     }
 
+    /**
+     * получает путь до требуемого api 
+     * использует $this->routes
+     * 
+     * @var $suffix string Опцонально. Добавляется к пути. по умолчанию ''  
+     * @var $type string Опцонально. по умолчанию 'all' 
+     * @return string 
+     */
+	private function r($suffix = '', $type = 'all') 
+	{
+		$r = $this->apiPrefix.$this->routes[$type].$suffix;	
+		// fwrite(STDERR, $r);
+		return $r;
+	}
+
+	/**
+	 * провайдер для testGetAll
+	 * можно переопределить в наследующем классе
+	 * 
+	 * @return array 
+	 */
+	public function providerTestGetAll()
+	{
+		return [[]];
+	}
+
+	/**
+	 * провайдер для testGetOne
+	 * можно переопределить в наследующем классе
+	 * 
+	 * @return array 
+	 */
+	public function providerTestGetOne()
+	{
+		return [[]];
+	}
 }

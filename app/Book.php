@@ -11,6 +11,13 @@ class Book extends Model
 {
 	protected $table = 'books';
 
+	/**
+	 * поля доступные для создания и изменения
+	 * 
+	 * @var array
+	 */
+	protected $fillable = ['name'];
+
 	public $timestamps = false;
 
 	/**

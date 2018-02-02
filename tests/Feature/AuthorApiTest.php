@@ -13,7 +13,11 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
  */
 class AuthorApiTest extends TestCase
 {
-	use DatabaseMigrations, RefreshDatabase, ApiTest;
+	use DatabaseMigrations, RefreshDatabase;
+	use ApiTest {
+		ApiTest::testCreateOne as private createOne;
+		ApiTest::testUpdateOne as private updateOne;
+	}
 
 	/**
 	 * класс тестируемой сущности
@@ -29,5 +33,25 @@ class AuthorApiTest extends TestCase
 	 */
 	private $routes = ['all' => '/authors', 'one' =>'/author'];
 
+    /**
+     * тест создания 
+     *
+     * @return void
+     */
+    public function testCreateOne()
+    {
 
+    	$this->createOne();
+    }
+
+    /**
+     * тест обновления 
+     *
+     * @return void
+     */
+    public function testUpdateOne()
+    {
+    	$this->updateOne();
+    }
+   
 }

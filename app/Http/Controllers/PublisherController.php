@@ -3,44 +3,30 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
-/**
- * Базовый класс для api
- * Наследуемые от него классы конфигурируются свойствами
- * $entityClass - класс сущности 
- * $resourceClass - класс ресурса
- * $collectionResourceClass - класс коллекции ресурса
- * 
- */
-class Controller extends BaseController
+class PublisherController extends Controller
 {
-    // use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-    use DispatchesJobs, ValidatesRequests;
 
     /**
      * Класс сущности 
      * 
      * @var string
      */
-    protected $entityClass;
+    protected $entityClass = 'App\Publisher';
 
     /**
      * Класс ресурса
      * 
      * @var string
      */
-    protected $resourceClass;
+    protected $resourceClass = 'App\Http\Resources\PublisherResource';
 
     /**
      * Класс коллекции ресурса
      * 
      * @var string
      */
-    protected $collectionResourceClass;
+    protected $collectionResourceClass = 'App\Http\Resources\PublishersResource';
 
     /**
      * Display a listing of the resource.
@@ -50,7 +36,7 @@ class Controller extends BaseController
     public function index()
     {
         //
-        return new $this->{'collectionResourceClass'}($this->entityClass::get());
+        return parent::index();
     }
 
     /**
@@ -60,7 +46,7 @@ class Controller extends BaseController
      */
     public function create()
     {
-        //
+        return parent::create();
     }
 
     /**
@@ -71,10 +57,7 @@ class Controller extends BaseController
      */
     public function store(Request $request)
     {
-        //
-        $entity = ($this->entityClass)::create($request->json()->all());
-
-        return new $this->{'resourceClass'}($entity);
+        return parent::store($request);
     }
 
     /**
@@ -85,8 +68,7 @@ class Controller extends BaseController
      */
     public function show($id)
     {
-        //
-        return new $this->{'resourceClass'}(($this->entityClass)::find($id));
+        return parent::show($id);
     }
 
     /**
@@ -97,6 +79,7 @@ class Controller extends BaseController
      */
     public function edit($id)
     {
+        return parent::edit($id);
     }
 
     /**
@@ -108,18 +91,7 @@ class Controller extends BaseController
      */
     public function update(Request $request, $id)
     {
-        $entity = ($this->entityClass)::findOrFail($id);
-        if (!$entity->update($request->json()->all())) {
-        	return response()
-		        	->json([
-		        		'data'=>[
-			        		'error' => 'entity not updated' 
-			        	]], 
-			        	500
-			        ); 
-        } else {
-			return new $this->{'resourceClass'}($entity);
-        }
+        return parent::update($request, $id);
     }
 
     /**
@@ -130,8 +102,7 @@ class Controller extends BaseController
      */
     public function destroy($id)
     {
-        ($this->entityClass)::find($id)->delete();
-
-        return 204;
+        return parent::destroy($id);
     }
+    
 }

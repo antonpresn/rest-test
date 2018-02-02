@@ -11,6 +11,13 @@ class Author extends Model
 {
 	protected $table = 'authors';
 
+	/**
+	 * поля доступные для создания и изменения
+	 * 
+	 * @var array
+	 */
+	protected $fillable = ['book_id', 'firstname', 'lastname', 'secondname'];	
+
 	public $timestamps = false;
 
 	/**

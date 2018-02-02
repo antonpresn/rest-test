@@ -11,6 +11,13 @@ class Publisher extends Model
 {
 	protected $table = 'publishers';
 
+	/**
+	 * поля доступные для создания и изменения
+	 * 
+	 * @var array
+	 */
+	protected $fillable = ['name'];
+
 	public $timestamps = false;
 
 	/**
