@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use Tests\Traits\ApiTest;
+use App\Author;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -14,10 +15,11 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 class AuthorApiTest extends TestCase
 {
 	use DatabaseMigrations, RefreshDatabase;
-	use ApiTest {
-		ApiTest::testCreateOne as private createOne;
-		ApiTest::testUpdateOne as private updateOne;
-	}
+	use ApiTest;
+	//  {
+	// 	ApiTest::testCreateOne as private createOne;
+	// 	ApiTest::testUpdateOne as private updateOne;
+	// }
 
 	/**
 	 * класс тестируемой сущности
@@ -33,25 +35,21 @@ class AuthorApiTest extends TestCase
 	 */
 	private $routes = ['all' => '/authors', 'one' =>'/author'];
 
-    /**
-     * тест создания 
-     *
-     * @return void
-     */
-    public function testCreateOne()
-    {
 
-    	$this->createOne();
+	public function providerUpdateOne()
+	{
+        $one = [];
+        $two = ['firstname' => false];
+        return [
+            // полное обновление
+            [$one, 'put', 'assertDatabaseHas'],
+            // частичное обновление не проходит с put
+            [$two, 'put', 'assertDatabaseMissing'],
+            // частичное обновление проходит с patch
+            [$two, 'patch', 'assertDatabaseHas'],
+
+        ];
+
     }
 
-    /**
-     * тест обновления 
-     *
-     * @return void
-     */
-    public function testUpdateOne()
-    {
-    	$this->updateOne();
-    }
-   
 }

@@ -20,10 +20,6 @@ class Author extends Model
 
 	public $timestamps = false;
 
-	/**
-	 * @var int идентфикатор автора
-	 */
-	public $id;
 
 	/**
 	 * @var int идентфикатор книги 

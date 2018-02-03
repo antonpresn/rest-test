@@ -21,20 +21,17 @@ class Publisher extends Model
 	public $timestamps = false;
 
 	/**
-	 * @var int
-	 */
-	public $id;
-
-	/**
 	 * @var string название издательства 
 	 */
 	public $name;
 
 	/**
 	 * Получает все книги издательства 
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
 	 */
 	public function books()
 	{
-		return $this->belongsToMany('App\Books', 'books_publishers');
+		return $this->belongsToMany('App\Book', 'books_publishers');
 	}
 }

@@ -45,7 +45,7 @@ trait ApiTest
     	$all = factory($this->entityClass, $count)->create();
     	$one = $all->all()[$count - 1];
 
-        $response = $this->get($this->r("/".$one->toArray()['id']));
+        $response = $this->get($this->r("/".$one->id));
         $response
 	        ->assertStatus(200)
 	        ->assertJson(['data' => $one->toArray()]);
@@ -70,17 +70,25 @@ trait ApiTest
     /**
      * тест обновления
      *
+     * @dataProvider providerUpdateOne
      * @return void
      */
-    public function testUpdateOne()
+    public function testUpdateOne($attrs = null, $method = 'put', $assertMethod = 'assertDatabaseHas')
     {
-    	$one = factory($this->entityClass)->make();
+    	$one = is_array($attrs) ? 
+                factory($this->entityClass)->make($attrs) :
+                factory($this->entityClass)->make();
+
     	// fwrite(STDERR, print_r($one, 1));
     	$before = factory($this->entityClass)->create();
-		$this->assertDatabaseMissing($one->getTable(), $one->toArray());
-        $response = $this->patchJson($this->r('/'.$before->toArray()['id']), $one->toArray());
+        $id = $before->id;
 
-		$this->assertDatabaseHas($one->getTable(), $one->toArray());
+        $data = array_filter($one->toArray());
+        $dataAssert = array_merge($data, ['id' => $id]);
+		$this->assertDatabaseMissing($one->getTable(), $dataAssert);
+        $response = $this->{$method.'Json'}($this->r('/'.$id), $data);
+
+		$this->$assertMethod($one->getTable(), $dataAssert);
 
     }
 
@@ -95,7 +103,7 @@ trait ApiTest
     	// fwrite(STDERR, \get_class($before));
     	// fwrite(STDERR, ($before->id));
     	// fwrite(STDERR, $before);
-        $response = $this->delete($this->r('/'.$before->toArray()['id']));
+        $response = $this->delete($this->r('/'.$before->id));
 		$this->assertDatabaseMissing($before->getTable(), $before->toArray());
 
     }
@@ -133,6 +141,11 @@ trait ApiTest
 	 * @return array 
 	 */
 	public function providerTestGetOne()
+	{
+		return [[]];
+	}
+
+	public function providerUpdateOne()
 	{
 		return [[]];
 	}

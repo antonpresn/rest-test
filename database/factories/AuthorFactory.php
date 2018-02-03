@@ -8,7 +8,7 @@ $factory->define(App\Author::class, function (Faker $faker) {
         'lastname' => $faker->lastName,
         'secondname' => $faker->lastName,
         'book_id' => function () {
-        	return factory(App\Book::class)->create()->toArray()['id'];
+        	return factory(App\Book::class)->create()->id;
         },
     ];
 });

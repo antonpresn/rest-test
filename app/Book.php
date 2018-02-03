@@ -20,10 +20,6 @@ class Book extends Model
 
 	public $timestamps = false;
 
-	/**
-	 * @var int идентификатор книги
-	 */
-	public $id;
 
 	/**
 	 * @var string название книги
