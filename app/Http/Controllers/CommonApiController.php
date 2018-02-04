@@ -50,7 +50,7 @@ class CommonApiController extends Controller
     public function index()
     {
         //
-        return new $this->{'collectionResourceClass'}($this->entityClass::get());
+        return new $this->{'collectionResourceClass'}($this->entityClass::paginate());
     }
 
     /**

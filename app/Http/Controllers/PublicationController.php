@@ -29,7 +29,7 @@ class PublicationController extends Controller
      * @apiName GetPublications
      * @apiGroup Publications
      *
-     * @apiSuccess {Object} список публикаций 
+     * @apiSuccess {Object} data список публикаций 
      *
      * @apiSuccessExample Success-Response:
      *     HTTP/1.1 200 OK
@@ -66,7 +66,7 @@ class PublicationController extends Controller
      * @apiName GetPublication
      * @apiGroup Publications
      *
-     * @apiSuccess {Object} публикация 
+     * @apiSuccess {Object} data публикация 
      *
      * @apiSuccessExample Success-Response:
      *     HTTP/1.1 200 OK

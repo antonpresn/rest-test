@@ -33,7 +33,7 @@ class BookController extends CommonApiController
      * @apiName GetBooks
      * @apiGroup Books
      *
-     * @apiSuccess {Object} список книг 
+     * @apiSuccess {Object} data список книг 
      *
      * @apiSuccessExample Success-Response:
      *     HTTP/1.1 200 OK
@@ -58,7 +58,7 @@ class BookController extends CommonApiController
      * @apiName CreateBook 
      * @apiGroup Books
      * 
-     * @apiSuccess {Object} созданная книга 
+     * @apiSuccess {Object} data созданная книга 
      * 
      * @apiSuccessExample Success-Response: 
      *     HTTP/1.1 201 Created 
@@ -79,7 +79,7 @@ class BookController extends CommonApiController
      * @apiName GetBook 
      * @apiGroup Books
      * 
-     * @apiSuccess {Object} книга 
+     * @apiSuccess {Object} data книга 
      * 
      * @apiSuccessExample Success-Response: 
      *     HTTP/1.1 200 
@@ -108,7 +108,7 @@ class BookController extends CommonApiController
      * @apiName UpdateBook 
      * @apiGroup Books
      * 
-     * @apiSuccess {Object} книга 
+     * @apiSuccess {Object} data книга 
      * 
      * @apiSuccessExample Success-Response: 
      *     HTTP/1.1 200 
@@ -142,7 +142,7 @@ class BookController extends CommonApiController
      * @apiName DeleteBook 
      * @apiGroup Books
      * 
-     * @apiSuccess 204 
+     * @apiSuccess (204) status
      * 
      * @apiSuccessExample Success-Response: 
      *     HTTP/1.1 204 

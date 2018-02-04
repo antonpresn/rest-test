@@ -49,7 +49,7 @@ class PublisherController extends CommonApiController
      * @apiName GetPublishers
      * @apiGroup Publishers
      *
-     * @apiSuccess {Object} список издательств 
+     * @apiSuccess {Object} data список издательств 
      *
      * @apiSuccessExample Success-Response:
      *     HTTP/1.1 200 OK
@@ -74,7 +74,7 @@ class PublisherController extends CommonApiController
      * @apiName CreatePublisher 
      * @apiGroup Publishers
      * 
-     * @apiSuccess {Object} созданная издательство 
+     * @apiSuccess {Object} data созданная издательство 
      * 
      * @apiSuccessExample Success-Response: 
      *     HTTP/1.1 201 Created 
@@ -95,7 +95,7 @@ class PublisherController extends CommonApiController
      * @apiName GetPublisher 
      * @apiGroup Publishers
      * 
-     * @apiSuccess {Object} издательство 
+     * @apiSuccess {Object} data издательство 
      * 
      * @apiSuccessExample Success-Response: 
      *     HTTP/1.1 200 
@@ -124,7 +124,7 @@ class PublisherController extends CommonApiController
      * @apiName UpdatePublisher 
      * @apiGroup Publishers
      * 
-     * @apiSuccess {Object} издательство 
+     * @apiSuccess {Object} data издательство 
      * 
      * @apiSuccessExample Success-Response: 
      *     HTTP/1.1 200 
@@ -158,7 +158,7 @@ class PublisherController extends CommonApiController
      * @apiName DeletePublisher 
      * @apiGroup Publishers
      * 
-     * @apiSuccess 204 
+     * @apiSuccess (204) status 
      * 
      * @apiSuccessExample Success-Response: 
      *     HTTP/1.1 204 
@@ -182,7 +182,7 @@ class PublisherController extends CommonApiController
      * @apiName GetPublisherBooks
      * @apiGroup Publishers
      * 
-     * @apiSuccess 302 Location /api/publications?publisher_id=:id
+     * @apiSuccess (302) Location /api/publications?publisher_id=:id
      * 
      * @apiSuccessExample Success-Response: 
      *     HTTP/1.1 302 Found
@@ -197,7 +197,7 @@ class PublisherController extends CommonApiController
      * @apiName GetPublisherBook
      * @apiGroup Publishers
      * 
-     * @apiSuccess 302 Location /api/publications/:uid
+     * @apiSuccess (302) Location /api/publications/:uid
      * 
      * @apiSuccessExample Success-Response: 
      *     HTTP/1.1 302 Found
@@ -212,7 +212,7 @@ class PublisherController extends CommonApiController
      * @apiName PutPublisherBook
      * @apiGroup Publishers
      * 
-     * @apiSuccess 302 Location /api/publications/:uid
+     * @apiSuccess (302) Location /api/publications/:uid
      * 
      * @apiSuccessExample Success-Response: 
      *     HTTP/1.1 302 Found
@@ -228,7 +228,7 @@ class PublisherController extends CommonApiController
      * @apiName DeletePublisherBook
      * @apiGroup Publishers
      * 
-     * @apiSuccess 204 
+     * @apiSuccess (204) status 
      * 
      * @apiSuccessExample Success-Response: 
      *     HTTP/1.1 204 

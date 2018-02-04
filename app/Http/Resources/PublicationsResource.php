@@ -14,8 +14,6 @@ class PublicationsResource extends ResourceCollection
      */
     public function toArray($request)
     {
-        // return $request->get('book_id');
-        // return $request;
         return parent::toArray($request);
     }
 }

@@ -37,7 +37,7 @@ class AuthorController extends CommonApiController
      * @apiName GetAuthors
      * @apiGroup Authors
      *
-     * @apiSuccess {Object} список авторов 
+     * @apiSuccess {Object} data список авторов 
      *
      * @apiSuccessExample Success-Response:
      *     HTTP/1.1 200 OK
@@ -65,7 +65,7 @@ class AuthorController extends CommonApiController
      * @apiName CreateAuthor 
      * @apiGroup Authors
      * 
-     * @apiSuccess {Object} созданный автор 
+     * @apiSuccess {Object} data созданный автор 
      * 
      * @apiSuccessExample Success-Response: 
      *     HTTP/1.1 201 Created 
@@ -89,7 +89,7 @@ class AuthorController extends CommonApiController
      * @apiName GetAuthor 
      * @apiGroup Authors
      * 
-     * @apiSuccess {Object} автор 
+     * @apiSuccess {Object} data автор 
      * 
      * @apiSuccessExample Success-Response: 
      *     HTTP/1.1 200 
@@ -121,7 +121,7 @@ class AuthorController extends CommonApiController
      * @apiName UpdateAuthor 
      * @apiGroup Authors
      * 
-     * @apiSuccess {Object} автор 
+     * @apiSuccess {Object} data автор 
      * 
      * @apiSuccessExample Success-Response: 
      *     HTTP/1.1 200 
@@ -158,7 +158,7 @@ class AuthorController extends CommonApiController
      * @apiName DeleteAuthor 
      * @apiGroup Authors
      * 
-     * @apiSuccess 204 
+     * @apiSuccess (204) status 
      * 
      * @apiSuccessExample Success-Response: 
      *     HTTP/1.1 204 
