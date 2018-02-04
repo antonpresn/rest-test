@@ -147,8 +147,14 @@ class CommonApiController extends Controller
      */
     public function destroy($id)
     {
-        ($this->entityClass)::find($id)->delete();
+        $ent = ($this->entityClass)::find($id);
+        if ($ent) {
+            $ent->delete();
+            return response('Deleted', 204);
+        } else {
 
-        return response('Deleted', 204);
+            return response(null, 404);
+        }
+
     }
 }

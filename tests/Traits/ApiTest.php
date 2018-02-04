@@ -4,17 +4,20 @@ namespace Tests\Traits;
 
 /**
  * трейт со стандартными тестами api
+ * 
+ * класс включающий должен иметь следующие свойства
+ * private $entityClass
+ * private $routes = ['all' => '', 'one' =>]
+ * 
  */
 trait ApiTest
 {
+    /**
+     * Префикс api по умолчанию
+     * 
+     * @var string
+     */
 	private $apiPrefix = '/api';
-
-	/** 
-	 * класс включающий должен иметь следующие свойства
-	 * private $entityClass
-	 * private $routes = ['all' => '', 'one' =>]
-	 * 
-	 */
 
     /**
      * тест коллекции 
@@ -112,8 +115,8 @@ trait ApiTest
      * получает путь до требуемого api 
      * использует $this->routes
      * 
-     * @var $suffix string Опцонально. Добавляется к пути. по умолчанию ''  
-     * @var $type string Опцонально. по умолчанию 'all' 
+     * @param $suffix string Опцонально. Добавляется к пути. по умолчанию ''  
+     * @param $type string Опцонально. по умолчанию 'all' 
      * @return string 
      */
 	private function r($suffix = '', $type = 'all') 
@@ -145,6 +148,12 @@ trait ApiTest
 		return [[]];
 	}
 
+    /**
+     * Провайдер для testUpdateOne
+     * можно переопределить в наследующем классе
+     * 
+     * @return array 
+     */
 	public function providerUpdateOne()
 	{
 		return [[]];

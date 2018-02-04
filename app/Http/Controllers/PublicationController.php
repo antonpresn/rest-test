@@ -24,7 +24,25 @@ class PublicationController extends Controller
         $this->initPublicationService();
     }
 
-    //
+    /**
+     * @api {get} /api/publications/ Зарос публикаций 
+     * @apiName GetPublications
+     * @apiGroup Publications
+     *
+     * @apiSuccess {Object} список публикаций 
+     *
+     * @apiSuccessExample Success-Response:
+     *     HTTP/1.1 200 OK
+     *     {
+     *          "data": [
+     *              {
+     *                "publisher_id": 2,
+     *                "book_id": 1 
+     *              }
+     *          ]
+     *      }
+     *
+     */
     public function index()
     {
         $publisherFilter = request()->get('publisher_id');
@@ -44,10 +62,28 @@ class PublicationController extends Controller
     }
 
     /**
-     * показать публикацию если таковая имеется 
-     * 
-     * @param string $id uid публикации
-     * @return type
+     * @api {get} /api/publications/:uid показать публикацию если таковая имеется. Где :uid суррогатный составной ключ
+     * @apiName GetPublication
+     * @apiGroup Publications
+     *
+     * @apiSuccess {Object} публикация 
+     *
+     * @apiSuccessExample Success-Response:
+     *     HTTP/1.1 200 OK
+     *     {
+     *          "data": 
+     *              {
+     *                "publisher_id": 2,
+     *                "book_id": 1 
+     *              }
+     *      }
+     * @apiError ResourceNotFound 
+     *
+     * @apiErrorExample Error-Response:
+     *     HTTP/1.1 404 Not Found
+     *     {
+     *       "error": "resource not found"
+     *     }*
      */
     public function show($id)
     {
