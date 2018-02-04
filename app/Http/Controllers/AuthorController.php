@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class AuthorController extends Controller
+class AuthorController extends CommonApiController
 {
 
     /**
@@ -27,5 +27,5 @@ class AuthorController extends Controller
      * @var string
      */
     protected $collectionResourceClass = 'App\Http\Resources\AuthorsResource';
-   
+
 }

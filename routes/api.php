@@ -12,8 +12,12 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-// Route::put('books/{book}/authors', 'BookController@linksAuthors');
-$except = ['create', 'edit'];
+Route::get('publishers/{publisher}/books', 'PublisherController@getPublisherBooks');
+Route::get('publishers/{publisher}/books/{book}', 'PublisherController@getPublisherBook');
+Route::put('publishers/{publisher}/books/{book}', 'PublisherController@putPublisherBook');
+Route::delete('publishers/{publisher}/books/{book}', 'PublisherController@deletePublisherBook');
+$except = ['except' => ['create', 'edit']];
 Route::resource('books', 'BookController', $except);
 Route::resource('authors', 'AuthorController', $except);
 Route::resource('publishers', 'PublisherController', $except);
+Route::resource('publications', 'PublicationController', ['only' => ['index', 'show']]);

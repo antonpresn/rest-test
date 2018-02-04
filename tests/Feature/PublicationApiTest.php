@@ -43,7 +43,7 @@ class PublicationApiTest extends TestCase
      */
     public function testGetOnePublication()
     {
-        $all = $this->entityClass::find(1);
+        $all = Publisher::find(1);
         $pid = 1;
         $bid = 1;
         $response = $this->get('/api/publications/'.$pid.'_'.$bid);
